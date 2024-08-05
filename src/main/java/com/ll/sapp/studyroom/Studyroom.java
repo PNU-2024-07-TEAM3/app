@@ -1,16 +1,22 @@
 package com.ll.sapp.studyroom;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.ll.sapp.user.SiteUser;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
+@Setter
+@Getter
 public class Studyroom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long study_id;
+    private Long studyroom_id;
 
     private String title;
 
@@ -22,5 +28,8 @@ public class Studyroom {
     private LocalDate createDate;
 
     private int numOfUser;
+
+    @ManyToMany(mappedBy = "studies")
+    private Set<SiteUser> members = new HashSet<>();
 
 }
