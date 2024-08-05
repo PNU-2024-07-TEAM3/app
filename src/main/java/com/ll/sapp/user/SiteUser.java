@@ -24,7 +24,7 @@ public class SiteUser {
     @Column(unique = true)
     private String nickname;
 
-<<<<<<< HEAD
+
     @ManyToMany
     @JoinTable(
             name = "user_study",
@@ -33,8 +33,6 @@ public class SiteUser {
     )
     private Set<Studyroom> studies = new HashSet<>();
 
-=======
->>>>>>> 726adeb67d229daa0d3c27e557837127e8b14f46
 
 //
 //    @Column(unique = true)
