@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.server.ResponseStatusException;
 
 @RequiredArgsConstructor
 @Controller
@@ -42,6 +44,45 @@ public class StudyRoomController {
         StudyRoom studyRoom = this.studyRoomService.getStudyRoom(id);
         model.addAttribute("studyRoom", studyRoom);
         return "studyroom_detail";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{id}")
+    public String questionModify(StudyRoomForm studyRoomForm, @PathVariable("id") Integer id, Principal principal) {
+        StudyRoom studyRoom = this.studyRoomService.getStudyRoom(id);
+        if(!studyRoom.getLeader().getUserName().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        studyRoomForm.setTitle(studyRoom.getTitle());
+        studyRoomForm.setEndDate(studyRoom.getEndDate());
+        studyRoomForm.setNumOfUser(studyRoom.getNumOfUser());
+        return "studyroom_form";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{id}")
+    public String studyRoomModify(@Valid StudyRoomForm studyRoomForm, BindingResult bindingResult,
+                                 Principal principal, @PathVariable("id") Integer id) {
+        if (bindingResult.hasErrors()) {
+            return "studyroom_form";
+        }
+        StudyRoom studyRoom = this.studyRoomService.getStudyRoom(id);
+        if (!studyRoom.getLeader().getUserName().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        this.studyRoomService.modify(studyRoom, studyRoomForm.getTitle(), studyRoomForm.getEndDate(), studyRoomForm.getNumOfUser());
+        return String.format("redirect:/studyRooms/detail/%s", id);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{id}")
+    public String questionDelete(Principal principal, @PathVariable("id") Integer id) {
+        StudyRoom studyRoom = this.studyRoomService.getStudyRoom(id);
+        if (!studyRoom.getLeader().getUserName().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        this.studyRoomService.delete(studyRoom);
+        return "redirect:/studyRooms/list";
     }
 
     @GetMapping("/myList")

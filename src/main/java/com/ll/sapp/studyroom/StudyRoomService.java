@@ -39,6 +39,18 @@ public class StudyRoomService {
         this.studyRoomRepository.save(s);
     }
 
+    //스터디룸 수정
+    public void modify(StudyRoom studyRoom, String title, String endDate, Integer numOfUser) {
+        studyRoom.setTitle(title);
+        studyRoom.setEndDate(endDate);
+        studyRoom.setNumOfUser(numOfUser);
+        this.studyRoomRepository.save(studyRoom);
+    }
+
+    public void delete(StudyRoom studyRoom) {
+        this.studyRoomRepository.delete(studyRoom);
+    }
+
     public Page<StudyRoom> getList(int page, String kw) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate"));
@@ -70,7 +82,6 @@ public class StudyRoomService {
                 .collect(Collectors.toList());
     }
 
-    // 검색기능 오류... 3-13절과는 다르게 join할 속성들의 수가 적어서?
     private Specification<StudyRoom> search(String kw) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;

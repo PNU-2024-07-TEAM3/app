@@ -1,17 +1,43 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
 
-    <h1 th:text="${studyRoom.title}"></h1>
+    <h1 class="border-bottom py-2" th:text="${studyRoom.title}"></h1>
     <div class="mb-2">작성자 : <span th:if="${studyRoom.leader != null}" th:text="${studyRoom.leader.nickname}"></span></div>
     <div class="mb-2">종료 일자 : <span th:text="${studyRoom.endDate}"></span></div>
     <div class="mb-2">모집 인원 : <span th:text="${studyRoom.numOfUser}"></span></div>
+    <div class="my-3">
+        <a th:href="@{|/studyRooms/modify/${studyRoom.id}|}" class="btn btn-sm btn-outline-secondary"
+           sec:authorize="isAuthenticated()"
+           th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}"
+           th:text="수정"></a>
+        <a href="javascript:void(0);" th:data-uri="@{|/studyRooms/delete/${studyRoom.id}|}"
+           class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+           th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}"
+           th:text="삭제"></a>
+    </div>
 
-    <!-- TODO : studyroom 작성자=leader 와 유저가 같은 경우 '클래스룸 열기 버튼'이 보이게 / 다를 경우 '신청하기 버튼'-->
     <!-- TODO : 버튼을 누르면 스터디룸에 멤버가 추가되고, 버튼을 누른 멤버의 /studyRooms/myList 페이지에서 스터디룸을 찾을 수 있는 기능-->
     <!-- TODO : 버튼 클릭 시 "수강신청완료" 라는 알림 (중복신청 불가)-->
 
-<button class="btn btn-primary">
-    <span class="text-1xl" style="color:black">수강신청</span>
-</button>
+    <a href="javascript:void(0);" th:data-uri="@{|/studyRooms/delete/${studyRoom.id}|}"
+       class="btn btn-primary" sec:authorize="isAuthenticated()"
+       th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() != studyRoom.leader.userName}"
+       th:text="수강신청"></a>
+
+        <a href="javascript:void(0);" th:data-uri="@{|/studyRooms/delete/${studyRoom.id}|}"
+           class="btn btn-primary" sec:authorize="isAuthenticated()"
+           th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}"
+        th:text="모집완료"></a>
+
 </div>
+<script layout:fragment="script" type='text/javascript'>
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+</script>
 </html>
