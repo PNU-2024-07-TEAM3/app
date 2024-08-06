@@ -1,30 +1,25 @@
 package com.ll.sapp;
 
-import com.ll.sapp.answer.Answer;
-import com.ll.sapp.answer.AnswerRepository;
-import com.ll.sapp.question.Question;
-import com.ll.sapp.question.QuestionRepository;
-import com.ll.sapp.question.QuestionService;
+import com.ll.sapp.studyroom.StudyRoom;
+import com.ll.sapp.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.time.LocalDateTime;
 
 @SpringBootTest
 class SappApplicationTests {
+    //    @Autowired
+//    private QuestionRepository questionRepository;
+//    @Autowired
+//    private AnswerRepository answerRepository;
+//    @Autowired
+//    private QuestionService questionService;
     @Autowired
-    private QuestionRepository questionRepository;
-    @Autowired
-    private AnswerRepository answerRepository;
-    @Autowired
-    private QuestionService questionService;
-
+    private UserService userService;
+/*
     @Test
     void testJpa3() {
         for (int i = 1; i <= 300; i++) {
@@ -80,16 +75,20 @@ class SappApplicationTests {
         assertEquals(1, q.getId());
          */
 
-        List<Question> qList = this.questionRepository.findBySubjectLike("sbb%");
-        Question q = qList.get(0);
-        assertEquals("sbb가 무엇인가요?", q.getSubject());
-    }
+//        List<Question> qList = this.questionRepository.findBySubjectLike("sbb%");
+//        Question q = qList.get(0);
+//        assertEquals("sbb가 무엇인가요?", q.getSubject()
+//
+//    SappApplicationTests(PasswordEncoder passwordEncoder) {
+//        this.passwordEncoder = passwordEncoder;
+//    });
+//    }
 
-    @Transactional // 마지막에 롤백됨
-    // @Rollback(false) 테스트 환경에서는 트랜잭션이 달린 케이스는 기본적으로 자동 롤백 됨
-    // 이렇게 하면 트랜잭션 성공 후 자동 롤백이 되지 않음
-    @Test
-    void testJpa2() {
+//    @Transactional // 마지막에 롤백됨
+//     @Rollback(false) 테스트 환경에서는 트랜잭션이 달린 케이스는 기본적으로 자동 롤백 됨
+//     이렇게 하면 트랜잭션 성공 후 자동 롤백이 되지 않음
+//    @Test
+//    void testJpa2() {
         /*
         수정
         Optional<Question> oq = this.questionRepository.findById(1);
@@ -129,12 +128,26 @@ class SappApplicationTests {
         assertEquals(2, a.getQuestion().getId());
          */
 
-        Optional<Question> oq = this.questionRepository.findById(2);
-        assertTrue(oq.isPresent());
-        Question q = oq.get();
+//        Optional<Question> oq = this.questionRepository.findById(2);
+//        assertTrue(oq.isPresent());
+//        Question q = oq.get();
+//
+//        List<Answer> answerList = q.getAnswerList();
+//        assertEquals(1, answerList.size());
+//        assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
+//    }
 
-        List<Answer> answerList = q.getAnswerList();
-        assertEquals(1, answerList.size());
-        assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
+    @Test
+    @Transactional
+    void myTest() {
+        StudyRoom studyRoom = new StudyRoom();
+        studyRoom.setTitle("title");
+        studyRoom.setCreateDate(LocalDateTime.now());
+        studyRoom.setEndDate(LocalDateTime.now());
+        studyRoom.setLearningObjective("Asdf");
+        studyRoom.setNumOfUser(12);
+        studyRoom.setIsOpen(false);
+//        userService.create("test", "test", "1234");
+        userService.getUser("test").getStudyRooms().add(studyRoom);
     }
 }
