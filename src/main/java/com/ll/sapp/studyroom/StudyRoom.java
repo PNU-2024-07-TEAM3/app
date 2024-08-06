@@ -5,31 +5,26 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Setter
 @Getter
 public class StudyRoom {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studyroom_id;
+    private Long StudyRoomId;
 
     private String title;
-
-    private LocalDate endDate;
+    private LocalDateTime createDate;
+    private LocalDateTime endDate;
     private String learningObjective;
+    private Integer numOfUser;
+    private Boolean isOpen;
 
-    private boolean isOpen;
+    private SiteUser leader;
 
-    private LocalDate createDate;
-
-    private int numOfUser;
-
-    @ManyToMany(mappedBy = "studies")
-    private Set<SiteUser> members = new HashSet<>();
-
+    @OneToMany(mappedBy = "studyRoom")
+    private List<StudyRoomMember> members;
 }
