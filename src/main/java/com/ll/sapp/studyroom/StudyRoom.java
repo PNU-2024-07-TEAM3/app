@@ -14,15 +14,17 @@ import java.util.List;
 public class StudyRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long StudyRoomId;
+    private Integer id;
 
     private String title;
     private LocalDateTime createDate;
-    private LocalDateTime endDate;
+    private String endDate;
     private String learningObjective;
     private Integer numOfUser;
     private Boolean isOpen;
 
+    @ManyToOne
+    @JoinColumn(name = "leader_id")
     private SiteUser leader;
 
     @OneToMany(mappedBy = "studyRoom")

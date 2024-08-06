@@ -4,14 +4,15 @@
 <h1>Classroom</h1>
     <body>
 <div class="mb-3">
-<form th:action="@{/studyroom/list}" method="get">
+<form th:action="@{/studyRooms/list}" method="get">
     <button class="btn btn-primary">
         <span class="text-2xl" style="color:black">클래스룸 찾기</span>
-    </button></form>
+    </button>
+</form>
 </div>
 
 <div class="mb-3">
-    <form th:action="@{/myclassroom/list}" method="get">
+    <form th:action="@{/studyRooms/myList}" method="get">
         <button class="btn btn-primary">
             <span class="text-2xl" style="color:black">내 클래스룸</span>
         </button>

@@ -1,7 +1,10 @@
 package com.ll.sapp;
 
 import com.ll.sapp.studyroom.StudyRoom;
+import com.ll.sapp.studyroom.StudyRoomRepository;
+import com.ll.sapp.studyroom.StudyRoomService;
 import com.ll.sapp.user.UserService;
+import org.antlr.v4.runtime.misc.LogManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,24 +14,26 @@ import java.time.LocalDateTime;
 
 @SpringBootTest
 class SappApplicationTests {
+    private StudyRoomService studyRoomService;
     //    @Autowired
 //    private QuestionRepository questionRepository;
 //    @Autowired
 //    private AnswerRepository answerRepository;
 //    @Autowired
 //    private QuestionService questionService;
-    @Autowired
-    private UserService userService;
-/*
-    @Test
-    void testJpa3() {
-        for (int i = 1; i <= 300; i++) {
-            String subject = String.format("테스트 데이터입니다:[%03d]", i);
-            String content = "내용무";
-            this.questionService.create(subject, content, null);
-        }
-    }
+//    @Autowired
+//    private UserService userService;
 
+//    @Test
+//    void testJpa3() {
+//
+//            String title = String.format("테스트 클래스1");
+//            String endDate = "20240810";
+//            Integer numOfUser = 4;
+//            this.studyRoomService.create(title, endDate, numOfUser, null);
+        
+    }
+/*
     @Test
     void testJpa() {
         /*
@@ -137,17 +142,16 @@ class SappApplicationTests {
 //        assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
 //    }
 
-    @Test
-    @Transactional
-    void myTest() {
-        StudyRoom studyRoom = new StudyRoom();
-        studyRoom.setTitle("title");
-        studyRoom.setCreateDate(LocalDateTime.now());
-        studyRoom.setEndDate(LocalDateTime.now());
-        studyRoom.setLearningObjective("Asdf");
-        studyRoom.setNumOfUser(12);
-        studyRoom.setIsOpen(false);
-//        userService.create("test", "test", "1234");
-        userService.getUser("test").getStudyRooms().add(studyRoom);
-    }
-}
+//    @Test
+//    @Transactional
+//    void myTest() {
+//        StudyRoom studyRoom = new StudyRoom();
+//        studyRoom.setTitle("title");
+//        studyRoom.setCreateDate(LocalDateTime.now());
+//        studyRoom.setEndDate(LocalDateTime.now());
+//        studyRoom.setLearningObjective("Asdf");
+//        studyRoom.setNumOfUser(12);
+//        studyRoom.setIsOpen(false);
+////        userService.create("test", "test", "1234");
+//        userService.getUser("test").getStudyRooms().add(studyRoom);
+//    }
