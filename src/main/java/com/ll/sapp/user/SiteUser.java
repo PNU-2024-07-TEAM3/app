@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -13,7 +14,7 @@ import java.util.Set;
 public class SiteUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
+    private Long user_id;
 
     @Column(unique = true)
     private String userName;
@@ -23,6 +24,17 @@ public class SiteUser {
     @Column(unique = true)
     private String nickname;
 
+
     @ManyToMany
-    Set<StudyRoom> studyRooms;
+    @JoinTable(
+            name = "user_study",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "studyroom_id")
+    )
+    private Set<StudyRoom> studies = new HashSet<>();
+
+
+//
+//    @Column(unique = true)
+//    private String email;
 }
