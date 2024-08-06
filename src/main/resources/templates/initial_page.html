@@ -22,7 +22,7 @@
         </form>
     </div>
     <div>
-        <form th:action="@{/myclassroom/list}" method="get">
+        <form th:action="@{/studyRooms/myList}" method="get">
             <button type="submit">내 클래스룸 입장하기</button>
         </form>
         <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>

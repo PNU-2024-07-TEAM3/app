@@ -1,3 +1,4 @@
+/*
 package com.ll.sapp.question;
 
 import com.ll.sapp.answer.AnswerForm;
@@ -100,3 +101,6 @@ public class QuestionController {
         return String.format("redirect:/question/detail/%s", id);
     }
 }
+
+
+ */

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Studyroom List</title>
+</head>
+<body>
+<h1>My StudyRoom List</h1>
+<h2>Welcome, <span th:text="${name}"></span>!</h2>
+
+<!-- Display the list of study rooms -->
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Created Date</th>
+        <th>End Date</th>
+        <th>Learning Objective</th>
+        <th>Number of Users</th>
+        <th>Open Status</th>
+        <th>Owner Nickname</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="studyRoom : ${studyrooms}">
+        <td th:text="${studyRoom.title}"></td>
+        <td th:text="${studyRoom.createDate}"></td>
+        <td th:text="${studyRoom.endDate}"></td>
+        <td th:text="${studyRoom.learningObjective}"></td>
+        <td th:text="${studyRoom.numOfUser}"></td>
+        <td th:text="${studyRoom.isOpen ? 'Open' : 'Closed'}"></td>
+        <td th:text="${studyRoom.ownerNickname}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
