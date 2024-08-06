@@ -1,5 +1,6 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
+
     <div th:if="${not #authorization.expression('isAuthenticated()')}">
         <!-- 로그인이 안 된 상태 -->
         <form th:action="@{/user/login}" method="get">
@@ -13,7 +14,7 @@
     <div th:if="${#authorization.expression('isAuthenticated()')}">
     <div class="row my-3">
         <div class="col-6">
-            <a th:href="@{/studyroom/create}" class="btn btn-primary">모집중인 클래스</a>
+            <a th:href="@{/studyroom/list}" class="btn btn-primary">모집중인 클래스</a>
         </div>
         <div class="col-6">
             <div class="input-group">
@@ -68,7 +69,6 @@
         <input type="hidden" id="kw" name="kw" th:value="${kw}">
         <input type="hidden" id="page" name="page" th:value="${paging.number}">
     </form>
-</div>
 <script layout:fragment="script" type='text/javascript'>
     const page_elements = document.getElementsByClassName("page-link");
     Array.from(page_elements).forEach(function (element) {
@@ -84,5 +84,6 @@
         document.getElementById('searchForm').submit();
     });
 </script>
+</div>
 </div>
 </html>
