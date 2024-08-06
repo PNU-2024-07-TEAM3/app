@@ -1,0 +1,38 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>My Classroom List</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>내 클래스룸 목록</h1>-->
+<!--&lt;!&ndash; 클래스룸 목록을 보여주는 부분 &ndash;&gt;-->
+<!--<ul>-->
+<!--  &lt;!&ndash; 예: classes라는 이름으로 모델에 추가된 클래스룸 목록을 순회하여 표시 &ndash;&gt;-->
+<!--  <li th:each="classroom : ${classes}">-->
+<!--    <span th:text="${classroom.title}">Class Title</span>-->
+<!--  </li>-->
+<!--</ul>-->
+
+<!--&lt;!&ndash; "내 클래스룸 입장하기" 버튼 폼 &ndash;&gt;-->
+<!--<form th:action="@{/myclassroom/list}" method="get">-->
+<!--  <button type="submit">내 클래스룸 입장하기</button>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Classroom List</title>
+</head>
+<body>
+<h1>My Classroom List</h1>
+<ul>
+    <li th:each="studyRoom : ${Classes}">
+        <span th:text="${studyRoom.title}">Title</span> -
+        <span th:text="${studyRoom.learningObjective}">Learning Objective</span>
+    </li>
+</ul>
+</body>
+</html>

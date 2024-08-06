@@ -17,7 +17,7 @@ public class StudyRoomService {
 
 
     // 스터디룸 개설
-    public StudyRoom create(String username, String nickname, String password) {
+    public StudyRoom create() {
         return null;
     }
 

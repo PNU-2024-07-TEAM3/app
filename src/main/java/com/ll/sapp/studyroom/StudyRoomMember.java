@@ -14,9 +14,17 @@ public class StudyRoomMember {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+//    @ManyToOne
+//    private StudyRoom studyRoom;
+//    @ManyToOne
+//    SiteUser member;
+
     @ManyToOne
+    @JoinColumn(name = "studyroom_id")
     private StudyRoom studyRoom;
+
     @ManyToOne
-    SiteUser member;
+    @JoinColumn(name = "user_id")
+    private SiteUser user;
 }
 
