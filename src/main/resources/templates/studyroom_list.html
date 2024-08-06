@@ -7,6 +7,9 @@
     </thead>
     <tbody>
     <tr th:each="question : ${StudyRoomList}">
+        <td>
+            <a th:href="@{|/studyroom/detail/${question.StudyRoomId}|}" th:text="${question.title}"></a>
+        </td>
         <td th:text="${question.StudyRoomId}"></td>
         <td th:text="${question.title}"></td>
         <td th:text="${question.createDate}"></td>

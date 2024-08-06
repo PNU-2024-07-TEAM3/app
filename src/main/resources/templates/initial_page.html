@@ -17,7 +17,7 @@
 <div th:if="${#authorization.expression('isAuthenticated()')}">
     <!-- 로그인이 된 상태 -->
     <div>
-        <form th:action="@{/classup/list}" method="get">
+        <form th:action="@{/studyroom/list}" method="get">
             <button type="submit">클래스룸 찾기</button>
         </form>
     </div>
