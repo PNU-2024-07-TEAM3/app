@@ -1,3 +1,4 @@
+/*
 package com.ll.sapp.question;
 
 import org.springframework.data.domain.Page;
@@ -15,3 +16,6 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 
     Page<Question> findAll(Pageable pageable);
 }
+
+
+ */
