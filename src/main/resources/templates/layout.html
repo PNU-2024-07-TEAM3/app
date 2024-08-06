@@ -1,22 +1,71 @@
-<!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-    <!-- sbb CSS -->
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-    <title>Hello, sbb!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: "Pretendard-Regular";
+            src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        html > body {
+            font-family: "Pretendard-Regular";
+            word-break: keep-all;
+            background-color: #22543d;
+        }
+
+        .navbar a,
+        .navbar svg {
+            color: white;
+        }
+    </style>
 </head>
 <body>
-<nav th:replace="~{navbar :: navbarFragment}"></nav>
-<!-- 기본 템플릿 안에 삽입될 내용 Start -->
-<th:block layout:fragment="content"></th:block>
-<!-- 기본 템플릿 안에 삽입될 내용 End -->
-<!-- Bootstrap JS -->
-<script th:src="@{/bootstrap.min.js}"></script>
-<th:block layout:fragment="script"></th:block>
+<header class="sticky top-0">
+    <div class="container-fluid">
+        <div class="navbar max-w-2xl mx-auto bg-background-color">
+            <div class="navbar-start">
+                <div class="dropdown">
+                    <label tabindex="0" class="btn btn-ghost btn-circle text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                        </svg>
+                    </label>
+                    <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-green-800 rounded-box w-52">
+                        <div th:if="${not #authorization.expression('isAuthenticated()')}">
+                            <li><a href="#" style="color:white"><i class="fa-solid fa-arrow-right-to-bracket"></i> 로그인</a></li>
+                            <li><a th:href="@{ /user/signup}" style="color:white"><i class="fa-solid fa-user-plus"></i> 회원가입</a></li>
+                        </div>
+                        <div class="!hidden" th:if="${#authorization.expression('isAuthenticated()')}">
+                            <li><a href="#" style="color:white"><i class="fa-solid fa-user"></i> 내 클래스룸</a></li>
+                            <li><a href="#" style="color:white"><i class="fa-solid fa-user"></i> 클래스룸 찾기</a></li>
+                            <li><a href="#" style="color:white"><i class="fa-solid fa-user"></i> 클래스룸 만들기</a></li>
+                            <li>
+                        </div>
+                        <a href="javascript:;" style="color:white" onclick="$(this).next().submit();">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
+                        </a>
+                        <form class="!hidden" th:action="/user/logout" method="POST"></form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="navbar-center">
+                <a class="btn btn-ghost text-xl text-white">CLASSROOM</a>
+            </div>
+            <div class="navbar-end">
+
+            </div>
+        </div>
+    </div>
+</header>
 </body>
 </html>
