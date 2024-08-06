@@ -1,17 +1,12 @@
 package com.ll.sapp.studyroom;
-import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 
@@ -31,7 +26,7 @@ public class StudyRoomController {
     public String detail(Model model, @PathVariable("id") Integer id) {
         return "studyroom_detail";
     }
-    }
+}
 
 
 

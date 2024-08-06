@@ -20,6 +20,9 @@ public class SiteUser {
 
     private String password;
 
+    @OneToMany(mappedBy = "leader")
+    private Set<StudyRoom> leadingRooms;
+
     @Column(unique = true)
     private String nickname;
 
