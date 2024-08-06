@@ -1,6 +1,7 @@
 package com.ll.sapp.user;
 
 import com.ll.sapp.DataNotFoundException;
+import com.ll.sapp.studyroom.StudyRoom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,19 @@ public class UserService {
         }
     }
 
+    public SiteUser getUser(Integer userId) {
+        Optional<SiteUser> siteUser = this.userRepository.findByUserId(userId);
+        if (siteUser.isPresent()) {
+            return siteUser.get();
+        } else {
+            throw new DataNotFoundException("siteUser not found");
+        }
+    }
+
     public Optional<SiteUser> findByUsername(String username) {
         return userRepository.findByUserName(username);
+    }
+    public Optional<SiteUser> findByUserId(Integer userId) {
+        return userRepository.findByUserId(userId);
     }
 }

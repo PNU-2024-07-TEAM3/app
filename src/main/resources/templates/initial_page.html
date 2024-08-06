@@ -1,23 +1,23 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
-<div layout:fragment="content" class="container my-3">
+<div layout:fragment="content" class="container my-3 d-flex flex-column align-items-center justify-content-center" style="height: 80vh;">
 
-<h1>Classroom</h1>
-    <body>
-<div class="mb-3">
-<form th:action="@{/studyRooms/list}" method="get">
-    <button class="btn btn-primary">
-        <span class="text-2xl" style="color:black">클래스룸 찾기</span>
-    </button>
-</form>
-</div>
+    <p class="display-1 font-weight-bold mb-5">StudyRoom</p>
 
-<div class="mb-3">
-    <form th:action="@{/studyRooms/myList}" method="get">
-        <button class="btn btn-primary">
-            <span class="text-2xl" style="color:black">내 클래스룸</span>
-        </button>
-</form>
-</div>
-    </body>
+    <div class="mb-4">
+        <form th:action="@{/studyRooms/list}" method="get">
+            <button style="background-color:white; color:#22543d; padding: 15px 30px; font-size: 1.5rem; font-weight: bold; border: 2px solid #22543d;">
+                스터디룸 찾기
+            </button>
+        </form>
+    </div>
+
+    <div>
+        <form th:action="@{/studyRooms/myList}" method="get">
+            <button style="background-color:white; color:#22543d; padding: 15px 30px; font-size: 1.5rem; font-weight: bold; border: 2px solid #22543d;">
+                내 스터디룸
+            </button>
+        </form>
+    </div>
+
 </div>
 </html>

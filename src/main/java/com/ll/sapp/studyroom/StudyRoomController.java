@@ -85,18 +85,17 @@ public class StudyRoomController {
         return "redirect:/studyRooms/list";
     }
 
-    @GetMapping("/myList")
-    @PreAuthorize("isAuthenticated()")
-    public String myList(Principal principal, Model model) {
-        String username = principal.getName();
-        Optional<SiteUser> user = userService.findByUsername(username);
-        if (user == null) {
-            throw new RuntimeException("User not found");
-        }
-        List<StudyRoom> studyRoomsByUserId = studyRoomService.getStudyRoomsByUserId(user.get().getUserId());
-        model.addAttribute("studyrooms", studyRoomsByUserId);
-        return "my_studyroom_list";
-    }
+//    TODO : 수정필요
+//    @PreAuthorize("isAuthenticated()")
+//    @GetMapping("/myList/{userId}")
+//    public String myList(Principal principal, @PathVariable("userId") Integer userId) {
+//        SiteUser siteUser = this.userService.getUser(userId);
+//        Optional<SiteUser> user = userService.findByUserId(userId);
+//        if (user == null) {throw new RuntimeException("User not found");}
+//        List<StudyRoom> studyRoomsByUserId = studyRoomService.getStudyRoomsByUserId(user.get().getUserId());
+//        model.addAttribute("studyRoom", studyRoom);
+//        return "my_studyroom_list";
+//    }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
