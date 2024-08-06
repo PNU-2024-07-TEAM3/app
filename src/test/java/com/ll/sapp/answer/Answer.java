@@ -1,3 +1,4 @@
+/*
 package com.ll.sapp.answer;
 
 import com.ll.sapp.question.Question;
@@ -33,3 +34,6 @@ public class Answer {
     @ManyToMany
     Set<SiteUser> voter;
 }
+
+
+ */
