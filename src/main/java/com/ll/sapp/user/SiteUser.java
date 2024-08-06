@@ -1,11 +1,10 @@
 package com.ll.sapp.user;
 
-import com.ll.sapp.studyroom.Studyroom;
+import com.ll.sapp.studyroom.StudyRoom;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -14,27 +13,16 @@ import java.util.Set;
 public class SiteUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Integer userId;
 
     @Column(unique = true)
-    private String username;
+    private String userName;
 
     private String password;
 
     @Column(unique = true)
     private String nickname;
 
-
     @ManyToMany
-    @JoinTable(
-            name = "user_study",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "studyroom_id")
-    )
-    private Set<Studyroom> studies = new HashSet<>();
-
-
-//
-//    @Column(unique = true)
-//    private String email;
+    Set<StudyRoom> studyRooms;
 }

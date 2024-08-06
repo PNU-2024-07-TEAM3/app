@@ -15,8 +15,7 @@ public class UserService {
 
     public SiteUser create(String username, String nickname, String password) {
         SiteUser user = new SiteUser();
-        user.setUsername(username);
-        // user.setEmail(email);
+        user.setUserName(username);
         user.setNickname(nickname);
         user.setPassword(passwordEncoder.encode(password));
         this.userRepository.save(user);
@@ -24,7 +23,7 @@ public class UserService {
     }
 
     public SiteUser getUser(String username) {
-        Optional<SiteUser> siteUser = this.userRepository.findByusername(username);
+        Optional<SiteUser> siteUser = this.userRepository.findByUserName(username);
         if (siteUser.isPresent()) {
             return siteUser.get();
         } else {
