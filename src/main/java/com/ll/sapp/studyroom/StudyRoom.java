@@ -23,10 +23,7 @@ public class StudyRoom {
     private Integer numOfUser;
     private Boolean isOpen;
 
-    @ManyToOne
-    @JoinColumn(name = "leader_id")
     private SiteUser leader;
-    private String ownerNickname;
 
     @OneToMany(mappedBy = "studyRoom")
     private List<StudyRoomMember> members;

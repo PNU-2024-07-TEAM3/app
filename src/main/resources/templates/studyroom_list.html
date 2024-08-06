@@ -1,8 +1,16 @@
-<table>
-    <thead>
-    <tr>
-        <th></th>
-        <th></th>
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+<div class="container my-3">
+    <table class="table">
+        <thead class="table-dark">
+    <tr> <th>번호</th>
+        <th>번호</th>
+        <th>번호</th>
+        <th>번호</th>
+        <th>번호</th>
+        <th>번호</th>
+        <th>번호</th>
+        <th>번호</th>
+        <th>번호</th>
     </tr>
     </thead>
     <tbody>
@@ -19,4 +27,11 @@
         <td th:text="${question.isOpen}"></td>
     </tr>
     </tbody>
+
 </table>
+
+<a th:href="@{/studyroom/create}" class="btn btn-primary">질문 등록하기</a>
+
+
+
+</div>
