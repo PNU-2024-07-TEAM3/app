@@ -17,4 +17,6 @@ public class DailyStudy {
 
     private Integer nDay;
 
+    private Integer temp;
+
 }

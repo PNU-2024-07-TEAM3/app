@@ -1,0 +1,19 @@
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="question : ${StudyRoomList}">
+        <td th:text="${question.StudyRoomId}"></td>
+        <td th:text="${question.title}"></td>
+        <td th:text="${question.createDate}"></td>
+        <td th:text="${question.endDate}"></td>
+        <td th:text="${question.learningObjective}"></td>
+        <td th:text="${question.numOfUser}"></td>
+        <td th:text="${question.isOpen}"></td>
+    </tr>
+    </tbody>
+</table>
