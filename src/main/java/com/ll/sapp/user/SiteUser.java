@@ -1,6 +1,6 @@
 package com.ll.sapp.user;
 
-import com.ll.sapp.studyroom.Studyroom;
+import com.ll.sapp.studyroom.StudyRoom;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +17,7 @@ public class SiteUser {
     private Long user_id;
 
     @Column(unique = true)
-    private String username;
+    private String userName;
 
     private String password;
 
@@ -31,7 +31,7 @@ public class SiteUser {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "studyroom_id")
     )
-    private Set<Studyroom> studies = new HashSet<>();
+    private Set<StudyRoom> studies = new HashSet<>();
 
 
 //
