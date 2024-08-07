@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>My Studyroom List</title>
+</head>
+<body>
+<div layout:fragment="content" class="container my-3 d-flex flex-column align-items-center justify-content-center"
+     style="height: 30vh;">
+    <div class="my-4 text-center">
+        <a th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}"
+           th:href="@{|/studyRooms/${studyRoom.studyRoomId}/dailyStudy/add|}" class="btn btn-primary"
+           style="background-color: green; color: white; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid green; font-size: 1.125rem;">
+            스터디 추가
+        </a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>스터디 목록</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dailyStudy, index : ${dailyStudyList}">
+            <td>
+                <a th:href="@{|/studyRooms/${studyRoom.studyRoomId}/dailyStudy/detail/${dailyStudy.dailyStudyId}|}" th:text="${dailyStudy.dailyStudyTitle}"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

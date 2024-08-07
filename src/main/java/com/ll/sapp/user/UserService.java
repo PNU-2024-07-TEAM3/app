@@ -1,7 +1,6 @@
 package com.ll.sapp.user;
 
 import com.ll.sapp.DataNotFoundException;
-import com.ll.sapp.studyroom.StudyRoom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,6 +43,7 @@ public class UserService {
     public Optional<SiteUser> findByUsername(String username) {
         return userRepository.findByUserName(username);
     }
+
     public Optional<SiteUser> findByUserId(Integer userId) {
         return userRepository.findByUserId(userId);
     }

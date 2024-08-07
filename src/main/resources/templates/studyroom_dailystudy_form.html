@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>스터디 만들기</title>
+</head>
+<body>
+<div layout:fragment="content" th:object="${dailyStudyCreateForm}" class="container d-flex flex-column justify-content-center align-items-center" style="height: 70vh;">
+    <div class="container">
+        <h3 class="my-3 text-center" style="font-size: 2.5rem; margin-bottom: 3rem;">스터디 만들기</h3>
+        <form th:object="${dailyStudyCreateForm}" method="post" th:action="@{|/studyRooms/${studyRoomId}/dailyStudy/add|}" style="width: 50%;">
+            <div class="form-group">
+                <label for="dailyStudyTitle">제목</label>
+                <input type="text" th:field="*{dailyStudyTitle}" class="form-control" id="dailyStudyTitle" required>
+                <div th:if="${#fields.hasErrors('dailyStudyTitle')}" th:errors="*{dailyStudyTitle}">제목 오류</div>
+            </div>
+            <button type="submit" class="btn btn-primary">추가</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

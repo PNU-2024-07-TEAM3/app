@@ -1,51 +1,60 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
-<div layout:fragment="content" class="container my-3 d-flex flex-column align-items-center justify-content-center" style="height: 80vh;">
-
+<div layout:fragment="content" class="container my-3 d-flex flex-column align-items-center justify-content-center"
+     style="height: 80vh;">
     <h1 class="py-2 text-center" style="font-size: 3.75rem;" th:text="${studyRoom.title}"></h1> <!-- 제목 크기 75%로 줄임 -->
 
-    <div class="mb-2 text-center" style="font-size: 1.5rem; margin-top: 1rem;">작성자 : <span th:if="${studyRoom.leader != null}" th:text="${studyRoom.leader.nickname}"></span></div>
-    <div class="mb-2 text-center" style="font-size: 1.5rem; margin-top: 1rem;">
-        종료 일자 :
-        <span th:text="${#strings.substring(studyRoom.endDate, 0, 4)}"></span>년
-        <span th:text="${#strings.substring(studyRoom.endDate, 4, 6)}"></span>월
-        <span th:text="${#strings.substring(studyRoom.endDate, 6, 8)}"></span>일
-    </div>
-    <div class="mb-2 text-center" style="font-size: 1.5rem; margin-top: 1rem;">모집 인원 : <span th:text="${studyRoom.numOfUser}"></span></div>
+    <div class="mb-2 text-center" style="font-size: 1.5rem; margin-top: 1rem;">작성자 : <span
+            th:if="${studyRoom.leader != null}" th:text="${studyRoom.leader.nickname}"></span></div>
+    <div class="mb-2 text-center" style="font-size: 1.5rem; margin-top: 1rem;">종료 일자 : <span
+            th:text="${studyRoom.endDate}"></span></div>
+    <div class="mb-2 text-center" style="font-size: 1.5rem; margin-top: 1rem;">모집 인원 : <span
+            th:text="${studyRoom.numOfUser}"></span></div>
+    <div class="mb-2 text-center" style="font-size: 1.5rem; margin-top: 1rem;">학습 목적 : <span
+            th:text="${studyRoom.learningObjective}"></span></div>
 
     <div class="my-4 text-center" style="margin-top: 1.5rem;">
-        <a th:href="@{|/studyRooms/modify/${studyRoom.id}|}" class="btn btn-sm btn-outline-secondary"
-           sec:authorize="isAuthenticated()"
-           th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}"
-           style="background-color: white; color: #22543d; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid #22543d; font-size: 1.125rem;"
-           th:text="수정"></a>
-        <a href="javascript:void(0);" th:data-uri="@{|/studyRooms/delete/${studyRoom.id}|}"
-           class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-           th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}"
-           style="background-color: white; color: #22543d; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid #22543d; font-size: 1.125rem;"
-           th:text="삭제"></a>
+        <form th:action="@{|/studyRooms/modify/${studyRoom.studyRoomId}|}" method="get" class="d-inline-block my-4"
+              th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}">
+            <button type="submit" class="btn btn-sm btn-outline-secondary"
+                    style="background-color: white; color: #22543d; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid #22543d; font-size: 1.125rem;">
+                수정
+            </button>
+        </form>
+        <form th:action="@{|/studyRooms/delete/${studyRoom.studyRoomId}|}" method="post" class="d-inline-block my-4"
+              th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}">
+            <button type="submit" class="btn btn-sm btn-outline-secondary delete"
+                    style="background-color: white; color: #22543d; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid #22543d; font-size: 1.125rem;">
+                삭제
+            </button>
+        </form>
     </div>
 
     <div class="my-4 text-center" style="margin-top: 1.125rem;">
-        <a href="javascript:void(0);" th:data-uri="@{|/studyRooms/delete/${studyRoom.id}|}"
-           class="btn btn-primary" sec:authorize="isAuthenticated()"
-           th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() != studyRoom.leader.userName}"
-           style="background-color: red; color: white; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid red; font-size: 1.125rem;"
-           th:text="수강신청"></a>
-        <a href="javascript:void(0);" th:data-uri="@{|/studyRooms/delete/${studyRoom.id}|}"
-           class="btn btn-primary" sec:authorize="isAuthenticated()"
+        <form th:action="@{/studyRooms/enroll}" method="post" class="text-center my-4"
+              th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() != studyRoom.leader.userName}">
+            <input type="hidden" name="studyRoomId" th:value="${studyRoom.studyRoomId}"/>
+            <button type="submit" class="btn btn-primary"
+                    style="background-color: red; color: white; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid red; font-size: 1.125rem;">
+                수강신청
+            </button>
+        </form>
+        <form th:action="@{|/studyRooms/complete/${studyRoom.studyRoomId}|}" method="post" class="text-center my-4">
+            <button type="submit" class="btn btn-primary"
            th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}"
            style="background-color: red; color: white; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid red; font-size: 1.125rem;"
-           th:text="모집완료"></a>
+           >모집완료</button>
+        </form>
     </div>
 
 </div>
 <script layout:fragment="script" type='text/javascript'>
     const delete_elements = document.getElementsByClassName("delete");
-    Array.from(delete_elements).forEach(function(element) {
-        element.addEventListener('click', function() {
-            if(confirm("정말로 삭제하시겠습니까?")) {
+    Array.from(delete_elements).forEach(function (element) {
+        element.addEventListener('click', function () {
+            if (confirm("정말로 삭제하시겠습니까?")) {
                 location.href = this.dataset.uri;
-            };
+            }
+            ;
         });
     });
 </script>

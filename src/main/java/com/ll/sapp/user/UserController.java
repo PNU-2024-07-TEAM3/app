@@ -50,16 +50,4 @@ public class UserController {
         return "login_form";
     }
 
-    /*
-    @GetMapping("/myList")
-    @PreAuthorize("isAuthenticated()")
-    public String myList(Principal principal, Model model) {
-        String username = principal.getName();
-        Optional<SiteUser> user = userService.findByUsername(username);
-        List<StudyRoom> studyRoomsByUserId = studyRoomService.getStudyRoomsByUserId(user.get().getUserId());
-        model.addAttribute("myRoomLists", studyRoomsByUserId);
-        return "my_studyroom_list";
-    }
-
-     */
 }

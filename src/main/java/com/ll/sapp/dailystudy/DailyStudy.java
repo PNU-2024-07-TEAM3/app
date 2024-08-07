@@ -1,9 +1,7 @@
 package com.ll.sapp.dailystudy;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.ll.sapp.studyroom.StudyRoom;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +13,10 @@ public class DailyStudy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer dailyStudyId;
 
-    private Integer nDay;
+    private String dailyStudyTitle;
+
+    @ManyToOne
+    @JoinColumn(name = "study_room_id")
+    private StudyRoom studyRoom;
 
 }

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,11 +15,12 @@ import java.util.List;
 public class StudyRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer studyRoomId;
 
+    @Column(unique = true, nullable = false)
     private String title;
     private LocalDateTime createDate;
-    private String endDate;
+    private LocalDate endDate;
     private String learningObjective;
     private Integer numOfUser;
     private Boolean isOpen;
@@ -27,6 +29,6 @@ public class StudyRoom {
     @JoinColumn(name = "leader_id")
     private SiteUser leader;
 
-    @OneToMany(mappedBy = "studyRoom")
+    @OneToMany(mappedBy = "studyRoom", cascade = CascadeType.ALL)
     private List<StudyRoomMember> members;
 }

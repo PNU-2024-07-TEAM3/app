@@ -1,36 +1,36 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content" class="container my-3 d-flex flex-column align-items-center justify-content-center"
+     style="height: 80vh;">
 <head>
     <title>My Studyroom List</title>
 </head>
 <body>
-<h1>나의 스터디룸</h1>
-<h2>Welcome, User!</h2>
+<h1>My StudyRoom List</h1>
 
 <!-- Display the list of study rooms -->
 <table>
     <thead>
     <tr>
         <th>Title</th>
-        <th>Created Date</th>
-        <th>End Date</th>
-        <th>Learning Objective</th>
-        <th>Number of Users</th>
         <th>Open Status</th>
-        <th>Owner Nickname</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="studyRoom : ${studyrooms}">
         <td th:text="${studyRoom.title}"></td>
-        <td th:text="${studyRoom.createDate}"></td>
-        <td th:text="${studyRoom.endDate}"></td>
-        <td th:text="${studyRoom.learningObjective}"></td>
-        <td th:text="${studyRoom.numOfUser}"></td>
         <td th:text="${studyRoom.isOpen ? 'Open' : 'Closed'}"></td>
-        <td th:text="${studyRoom.ownerNickname}"></td>
+        <td>
+            <a sec:authorize="isAuthenticated()" th:if="${studyRoom.isOpen}"
+                style="color: red; font-weight: 600;"
+               th:href="@{|/studyRooms/${studyRoom.studyRoomId}/dailyStudy/list|}" th:text="'스터디 하기'"></a>
+            <a sec:authorize="isAuthenticated()" th:if="${!studyRoom.isOpen}"
+                style="color: grey; font-weight: 600;"
+               th:href="@{|/studyRooms/detail/${studyRoom.studyRoomId}|}" th:text="'스터디룸 내용'"></a>
+        </td>
     </tr>
     </tbody>
 </table>
 </body>
+</div>
 </html>
