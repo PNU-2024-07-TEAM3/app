@@ -1,0 +1,45 @@
+<body>
+<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" style="color:white" href="/">STUDYON</a>
+        <span class="navbar-text" style="color:white" sec:authorize="isAuthenticated()">
+                       [ 환영합니다, <span th:text="${#authentication.getPrincipal().getUsername()}">사용자</span>님! ]
+                    </span>
+        <button class="navbar-toggler" style="color:white" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="border-color:#22543d"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" style="color:white" sec:authorize="isAnonymous()"
+                       th:href="@{/user/login}">로그인</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:white" sec:authorize="isAnonymous()"
+                       th:href="@{/user/signup}">회원가입</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:white" sec:authorize="isAuthenticated()"
+                       th:href="@{/studyRooms/myList}">내 스터디룸</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:white" sec:authorize="isAuthenticated()"
+                       th:href="@{/studyRooms/list}">스터디룸 찾기</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:white" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<script>
+    $(document).ready(function () {
+        $('.navbar-toggler').click(function () {
+            $('#navbarSupportedContent').toggleClass('show');
+        });
+    });
+</script>
+</body>

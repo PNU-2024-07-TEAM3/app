@@ -1,33 +1,24 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Classroom</title>
-</head>
-<body>
-<h1>Classroom</h1>
-<!-- 로그인 상태를 확인하는 Thymeleaf 조건문 -->
-<div th:if="${not #authorization.expression('isAuthenticated()')}">
-    <!-- 로그인이 안 된 상태 -->
-    <form th:action="@{/user/login}" method="get">
-        <button type="submit">로그인</button>
-    </form>
-</div>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content" class="container my-3 d-flex flex-column align-items-center justify-content-center"
+     style="height: 80vh;">
 
-<div th:if="${#authorization.expression('isAuthenticated()')}">
-    <!-- 로그인이 된 상태 -->
-    <div>
+    <p class="display-1 font-weight-bold mb-5">StudyRoom</p>
+
+    <div class="mb-4">
         <form th:action="@{/studyRooms/list}" method="get">
-            <button type="submit">클래스룸 찾기</button>
+            <button style="background-color:white; color:#22543d; padding: 15px 30px; font-size: 1.5rem; font-weight: bold; border: 2px solid #22543d;">
+                스터디룸 찾기
+            </button>
         </form>
     </div>
+
     <div>
         <form th:action="@{/studyRooms/myList}" method="get">
-            <button type="submit">내 클래스룸 입장하기</button>
+            <button style="background-color:white; color:#22543d; padding: 15px 30px; font-size: 1.5rem; font-weight: bold; border: 2px solid #22543d;">
+                내 스터디룸
+            </button>
         </form>
-        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
     </div>
-</div>
 
-</body>
+</div>
 </html>

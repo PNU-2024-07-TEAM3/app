@@ -20,7 +20,7 @@ public class SiteUser {
 
     private String password;
 
-    @OneToMany(mappedBy = "leader")
+    @OneToMany(mappedBy = "leader", cascade = CascadeType.ALL)
     private Set<StudyRoom> leadingRooms;
 
     @Column(unique = true)

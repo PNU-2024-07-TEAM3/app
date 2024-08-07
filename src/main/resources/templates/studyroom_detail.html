@@ -1,3 +1,75 @@
-<h1>제목</h1>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content" class="container my-3 d-flex flex-column align-items-center justify-content-center"
+     style="height: 80vh;">
+    <h1 class="py-2 text-center" style="font-size: 3.75rem;" th:text="${studyRoom.title}"></h1> <!-- 제목 크기 75%로 줄임 -->
 
-<div>내용</div>
+    <div class="mb-2 text-center" style="font-size: 1.5rem; margin-top: 1rem;">작성자 : <span
+            th:if="${studyRoom.leader != null}" th:text="${studyRoom.leader.nickname}"></span></div>
+    <div class="mb-2 text-center" style="font-size: 1.5rem; margin-top: 1rem;">종료 일자 : <span
+            th:text="${studyRoom.endDate}"></span></div>
+    <div class="mb-2 text-center" style="font-size: 1.5rem; margin-top: 1rem;">모집 인원 : <span
+            th:text="${studyRoom.numOfUser}"></span></div>
+    <div class="mb-2 text-center" style="font-size: 1.5rem; margin-top: 1rem;">현재 참여인원 : <span
+            th:text="${studyRoom.members.size()}"></span></div>
+    <div class="mb-2 text-center" style="font-size: 1.5rem; margin-top: 1rem;">학습 목적 : <span
+            th:text="${studyRoom.learningObjective}"></span></div>
+
+    <div sec:authorize="isAuthenticated()">
+        <div class="my-4 text-center" style="margin-top: 1.5rem;">
+            <form th:action="@{|/studyRooms/modify/${studyRoom.studyRoomId}|}" method="get" class="d-inline-block my-4"
+                  th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}">
+                <button type="submit" class="btn btn-sm btn-outline-secondary"
+                        style="background-color: white; color: #22543d; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid #22543d; font-size: 1.125rem;">
+                    수정
+                </button>
+            </form>
+            <form th:action="@{|/studyRooms/delete/${studyRoom.studyRoomId}|}" method="post" class="d-inline-block my-4"
+                  th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}">
+                <button type="submit" class="btn btn-sm btn-outline-secondary"
+                        style="background-color: white; color: #22543d; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid #22543d; font-size: 1.125rem;">
+                    삭제
+                </button>
+            </form>
+        </div>
+
+        <div class="my-4 text-center" style="margin-top: 1.125rem;">
+            <div th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() != studyRoom.leader.userName}">
+                <form th:action="@{/studyRooms/enroll}" method="post" class="text-center my-4"
+                      th:if="${studyRoom.members.size()} < ${studyRoom.numOfUser}">
+                    <input type="hidden" name="studyRoomId" th:value="${studyRoom.studyRoomId}"/>
+                    <button type="submit" class="btn btn-primary"
+                            th:attr="disabled=${studyRoom.isOpen || isAlreadyEnrolled ? 'disabled' : null}"
+                            style="background-color: red; color: white; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid red; font-size: 1.125rem;">
+                        수강신청
+                    </button>
+                </form>
+                <button class="btn btn-primary" disabled
+                        th:if="${studyRoom.members.size()} >= ${studyRoom.numOfUser}"
+                        style="background-color: red; color: white; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid red; font-size: 1.125rem;">
+                    인원초과
+                </button>
+            </div>
+            <form th:action="@{|/studyRooms/completeRecruit/${studyRoom.studyRoomId}|}" method="post" class="my-4"
+                  th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}">
+                <button type="submit" class="btn btn-sm btn-outline-secondary"
+                        th:attr="disabled=${studyRoom.isOpen ? 'disabled' : null}"
+                        style="background-color: red; color: white; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid #22543d; font-size: 1.125rem;">
+                    모집 완료
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>
+<script layout:fragment="script" type='text/javascript'>
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function (element) {
+        element.addEventListener('click', function () {
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            }
+            ;
+        });
+    });
+</script>
+</html>
