@@ -1,36 +1,58 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content" class="container my-3 d-flex flex-column align-items-center justify-content-center"
-     style="height: 80vh;">
-<head>
-    <title>My Studyroom List</title>
-</head>
-<body>
-<h1>My StudyRoom List</h1>
+     style="height: 60vh;">
+    <head>
+        <title>나의 스터디룸 목록</title>
+        <style>
+            .highlight {
+                color: yellow;
+            }
+        </style>
+    </head>
+    <body>
+    <h1 style="font-size: 4rem; margin-bottom: 3.5rem;"><span th:text="${#authentication.getPrincipal().getUsername()}">사용자</span>의 스터디룸 목록</h1>
 
-<!-- Display the list of study rooms -->
-<table>
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Open Status</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="studyRoom : ${studyrooms}">
-        <td th:text="${studyRoom.title}"></td>
-        <td th:text="${studyRoom.isOpen ? 'Open' : 'Closed'}"></td>
-        <td>
-            <a sec:authorize="isAuthenticated()" th:if="${studyRoom.isOpen}"
-                style="color: red; font-weight: 600;"
-               th:href="@{|/studyRooms/${studyRoom.studyRoomId}/dailyStudy/list|}" th:text="'스터디 하기'"></a>
-            <a sec:authorize="isAuthenticated()" th:if="${!studyRoom.isOpen}"
-                style="color: grey; font-weight: 600;"
-               th:href="@{|/studyRooms/detail/${studyRoom.studyRoomId}|}" th:text="'스터디룸 내용'"></a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-</body>
+    <table style="width: 100%;">
+        <thead>
+        <tr>
+            <th style="height: 2em; width: 45%; font-size: 1.5em;">스터디 이름</th>
+            <th style="height: 2em; font-size: 1.5em; text-align: center;">스터디장</th>
+            <th style="height: 2em; font-size: 1.5em; text-align: center;">스터디룸 상태</th>
+            <th style="height: 2em; font-size: 1.5em; text-align: center;">이동하기</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="studyRoom : ${studyrooms}">
+            <td th:classappend="${#authentication.getPrincipal().getUsername() == studyRoom.leader.userName} ? 'highlight' : ''"
+                th:text="${studyRoom.title}"
+                style="font-size: 1.5em; font-weight: 600;"></td>
+            <td th:text="${studyRoom.leader.nickname}" style="font-size: 1.5em; text-align: center;"></td>
+            <td style="font-size: 1.5em; text-align: center;" th:text="${studyRoom.isOpen ? '모집종료' : '모집중'}"></td>
+            <td style="text-align: center;">
+                <a th:if="${studyRoom.isOpen}"
+                   style="color: lightgreen; font-weight: 600; font-size: 1.5em;"
+                   th:href="@{|/studyRooms/${studyRoom.studyRoomId}/dailyStudy/list|}" th:text="'스터디룸으로 이동'"></a>
+                <a th:if="${!studyRoom.isOpen}"
+                   style="color: grey; font-weight: 600; font-size: 1.5em;"
+                   th:href="@{|/studyRooms/detail/${studyRoom.studyRoomId}|}" th:text="'스터디룸 상세'"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            var table = document.getElementById("studyRoomTable");
+            var tbody = table.getElementsByTagName("tbody")[0];
+            var rows = Array.prototype.slice.call(tbody.getElementsByTagName("tr"));
+
+            rows.reverse();
+
+            rows.forEach(function(row) {
+                tbody.appendChild(row);
+            });
+        });
+    </script>
+    </body>
 </div>
 </html>

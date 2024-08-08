@@ -17,17 +17,23 @@
         <tr class="text-center text-bg-light">
             <th>번호</th>
             <th style="width:50%">스터디 제목</th>
-            <th>방장</th>
+            <th>작성자</th>
             <th>모집 인원</th>
+            <th>현재 참여인원</th>
+            <th>상태</th>
         </tr>
         </thead>
         <tbody>
         <tr class="text-center" th:each="studyRoom, loop : ${paging}">
             <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
-            <td class="text-start"><a th:href="@{|/studyRooms/detail/${studyRoom.studyRoomId}|}" th:text="${studyRoom.title}"
-                                      style="color: #22543d; font-weight: 600;"></a></td>
+            <td class="text-start"><a th:href="@{|/studyRooms/detail/${studyRoom.studyRoomId}|}"
+                                      th:text="${studyRoom.title}"
+                                      th:style="${studyRoom.isOpen} ? 'color: gray; font-weight: 600;' : 'color: #22543d; font-weight: 600;'">
+            </a></td>
             <td><span th:if="${studyRoom.leader != null}" th:text="${studyRoom.leader.nickname}"></span></td>
             <td><span th:text="${studyRoom.numOfUser}"></span></td>
+            <td><span th:text="${studyRoom.members.size()}"></span></td>
+            <td><span th:text="${studyRoom.isOpen ? '모집 종료' : '모집 중'}"></span></span></td>
         </tr>
         </tbody>
     </table>

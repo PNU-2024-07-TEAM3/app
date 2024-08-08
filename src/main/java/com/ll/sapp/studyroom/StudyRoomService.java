@@ -122,4 +122,13 @@ public class StudyRoomService {
         studyRoom.setLearningObjective(learningObjective);
         studyRoomRepository.save(studyRoom);
     }
+
+    public void completeRecruit(StudyRoom studyRoom) {
+        studyRoom.setIsOpen(true);
+        studyRoomRepository.save(studyRoom);
+    }
+
+    public boolean isAlreadyEnrolled(SiteUser siteUser, StudyRoom studyRoom) {
+        return studyRoomMemberRepository.existsByMemberAndStudyRoom(siteUser, studyRoom);
+    }
 }

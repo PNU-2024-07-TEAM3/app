@@ -4,30 +4,31 @@
     <title>My Studyroom List</title>
 </head>
 <body>
-<div layout:fragment="content" class="container my-3 d-flex flex-column align-items-center justify-content-center"
-     style="height: 30vh;">
-    <div class="my-4 text-center">
-        <a th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}"
-           th:href="@{|/studyRooms/${studyRoom.studyRoomId}/dailyStudy/add|}" class="btn btn-primary"
-           style="background-color: green; color: white; font-weight: bold; padding: 11.25px 22.5px; border: 1.5px solid green; font-size: 1.125rem;">
-            스터디 추가
-        </a>
-    </div>
-
-    <table>
+<div layout:fragment="content" class="container my-3 d-flex flex-column align-items-center justify-content-center">
+    <table style="width: 100%; border-spacing: 0 2rem; text-align: center;">
         <thead>
         <tr>
-            <th>스터디 목록</th>
+            <th style="font-size: 3rem; margin-bottom: 1rem">스터디 목록</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="dailyStudy, index : ${dailyStudyList}">
-            <td>
-                <a th:href="@{|/studyRooms/${studyRoom.studyRoomId}/dailyStudy/detail/${dailyStudy.dailyStudyId}|}" th:text="${dailyStudy.dailyStudyTitle}"></a>
+            <td style="font-size: 2rem; padding: 0.5rem 0;">
+                <a th:href="@{|/studyRooms/${studyRoom.studyRoomId}/dailyStudy/detail/${dailyStudy.dailyStudyId}|}"
+                   th:text="${dailyStudy.dailyStudyTitle}"
+                   style="color: white;"></a>
             </td>
         </tr>
         </tbody>
     </table>
+
+    <div class="text-center" style="margin-top: 2rem; margin-bottom: 4rem;">
+        <a th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}"
+           th:href="@{|/studyRooms/${studyRoom.studyRoomId}/dailyStudy/add|}" class="btn btn-primary"
+           style="background-color: green; color: white; font-weight: bold; padding: 22.5px 45px; border: 3px solid green; font-size: 2.5rem;">
+            스터디 추가
+        </a>
+    </div>
 
 </div>
 </body>

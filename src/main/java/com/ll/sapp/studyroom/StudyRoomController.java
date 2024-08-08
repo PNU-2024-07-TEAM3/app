@@ -14,6 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -29,6 +33,9 @@ public class StudyRoomController {
     private final StudyRoomService studyRoomService;
     private final UserService userService;
 
+    @Autowired
+    private StudyRoomMemberRepository studyRoomMemberRepository;
+
     @GetMapping("/list")
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
         Page<StudyRoom> paging = this.studyRoomService.getList(page, kw);
@@ -38,9 +45,17 @@ public class StudyRoomController {
     }
 
     @GetMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id) {
+    public String detail(Model model, @PathVariable("id") Integer id, Principal principal) {
         StudyRoom studyRoom = studyRoomService.getStudyRoom(id);
         model.addAttribute("studyRoom", studyRoom);
+        boolean isAlreadyEnrolled = false;
+        if (principal != null) {
+            String name = principal.getName();
+            Optional<SiteUser> user = userService.findByUsername(name);
+            SiteUser siteUser = user.get();
+            isAlreadyEnrolled = studyRoomService.isAlreadyEnrolled(siteUser, studyRoom);
+        }
+        model.addAttribute("isAlreadyEnrolled", isAlreadyEnrolled);
         return "studyroom_detail";
     }
 
@@ -55,6 +70,7 @@ public class StudyRoomController {
         studyRoomModifyForm.setTitle(studyRoom.getTitle());
         studyRoomModifyForm.setEndDate(studyRoom.getEndDate().toString());
         studyRoomModifyForm.setNumOfUser(studyRoom.getNumOfUser());
+        studyRoomModifyForm.setLearningObjective(studyRoom.getLearningObjective());
         return "modify_studyroom_form";
     }
 
@@ -73,6 +89,7 @@ public class StudyRoomController {
         return "redirect:/studyRooms/list";
     }
 
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/delete/{id}")
     public String questionDelete(Principal principal, @PathVariable("id") Integer id) {
@@ -84,6 +101,16 @@ public class StudyRoomController {
         return "redirect:/studyRooms/list";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/completeRecruit/{id}")
+    public String recruitComplete(Principal principal, @PathVariable("id") Integer id) {
+        StudyRoom studyRoom = this.studyRoomService.getStudyRoom(id);
+        if (!studyRoom.getLeader().getUserName().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "권한이 없습니다.");
+        }
+        this.studyRoomService.completeRecruit(studyRoom);
+        return "redirect:/studyRooms/list";
+    }
 
     @GetMapping("/myList")
     @PreAuthorize("isAuthenticated()")
@@ -148,11 +175,12 @@ public class StudyRoomController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/complete/{id}")
-    @ResponseBody
-    public ResponseEntity<String> completeStudyRoom(@PathVariable Integer id) {
+    @PostMapping(value = "/complete/{id}")
+    public String complete(Model model, @PathVariable("id") Integer id) {
+        StudyRoom studyRoom = studyRoomService.getStudyRoom(id);
+        model.addAttribute("studyRoom", studyRoom);
         studyRoomService.completeStudyRoom(id);
-        return ResponseEntity.ok("Study room recruitment completed.");
+        return "complete_page";
     }
 
 }
