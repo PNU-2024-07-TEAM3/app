@@ -29,8 +29,8 @@ public class MemoService {
         memoRepository.deleteById(id);
     }
 
-    public boolean userHasMemo(SiteUser user) {
-        return memoRepository.existsByUser(user);
+    public boolean userHasMemo(DailyStudy dailyStudy, SiteUser user) {
+        return memoRepository.existsByDailyStudyAndUser(dailyStudy, user);
     }
 
     public Memo getMemo(Long id) {
