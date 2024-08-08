@@ -1,12 +1,45 @@
-<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
-
-<div layout:fragment="content" class="container mt-5">
-    <h1 class="mb-4" th:text="${memo.title}">메모 제목</h1>
+<html layout:decorate="~{layout}">
+<head>
+    <style>
+        .card, .card-body, .btn {
+            background-color: #ffcd39 !important;
+        }
+        .card, .card-body, .btn, h1, p {
+            color: black !important;
+        }
+        .card {
+            border: 2px solid #ffcd39;
+            border-radius: 0;
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: auto;
+            padding: 1rem;
+        }
+        h1 {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #ffcd39 !important;
+            border-color: #ffcd39 !important;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-5" style="width:50%;">
     <div class="card">
         <div class="card-body">
-            <p class="card-text" th:text="${memo.content}">내용</p>
-            <a th:href="@{|/studyRooms/${studyRoomId}/dailyStudy/${dailyStudyId}/memos|}" class="btn btn-primary">목록으로 돌아가기</a>
+            <h1 class="mb-4" th:text="${memo.title}">메모 제목</h1>
+            <div class="card-text" th:utext="${@commonUtil.markdown(memo.content)}"></div>
         </div>
     </div>
+    <div class="d-flex justify-content-center py-4">
+    <a th:href="@{|/studyRooms/${studyRoomId}/dailyStudy/${dailyStudyId}/memos|}" class="btn btn-primary btn-green-text">목록으로 돌아가기</a>
+    </div>
 </div>
+</body>
 </html>

@@ -2,11 +2,11 @@
 <head>
     <style>
         .card {
-            background-color: yellow;
+            background-color: #ffcd39 ;
             height: 0;
             padding-bottom: 100%;
             position: relative;
-            border: 2px solid black;
+            border: 2px solid #ffcd39;
             border-radius: 0;
             display: flex;
             flex-direction: column;
@@ -56,13 +56,15 @@
 </head>
 <body>
 <div layout:fragment="content" class="container my-5">
-    <h1 class="mb-4">메모 목록</h1>
-    <a th:if="${!alreadyDone}" th:href="@{'/studyRooms/' + ${studyRoomId} + '/dailyStudy/' + ${dailyStudyId} + '/memos/create'}" class="btn btn-primary mb-3">포스트잇 붙이기</a>
-    <div class="row">
+    <div class="row my-4 justify-content-center">
+    <h1 class="mb-4">포스트잇 목록</h1>
+    </div>
+    <a th:if="${!alreadyDone}" th:href="@{'/studyRooms/' + ${studyRoomId} + '/dailyStudy/' + ${dailyStudyId} + '/memos/create'}" class="btn btn-success mb-3">포스트잇 붙이기</a>
+    <div class="row my-4">
         <div th:each="memo : ${memos}" class="col-md-4 mb-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title" style="font-weight: bold;" th:text="${memo.title}"></h5>
+                    <h4 class="card-title" style="font-weight: bold;" th:text="${memo.title}"></h4>
                     <p class="card-text" style="font-weight: bold;">작성자 : <span th:text="${memo.user.nickname}"></span></p>
                 </div>
                 <div class="btn-group">
@@ -70,7 +72,7 @@
                        class="btn btn-light-orange" style="width: 100%; max-width: 100px;">자세히 보기</a>
                     <a th:href="@{|/studyRooms/${studyRoomId}/dailyStudy/${dailyStudyId}/memos/${memo.memoId}/edit|}"
                        th:if="${memo.user != null and #authentication.getPrincipal().getUsername() == memo.user.userName}"
-                       class="btn btn-warning" style="width: 100%; max-width: 100px; display: inline-block; text-align: center; white-space: nowrap; box-sizing: border-box;">수정</a>
+                       class="btn btn-warning" style="width: 100%; max-width: 100px; white-space: nowrap; box-sizing: border-box;">수정</a>
                     <form th:action="@{|/studyRooms/${studyRoomId}/dailyStudy/${dailyStudyId}/memos/${memo.memoId}/delete|}"
                           th:if="${memo.user != null and #authentication.getPrincipal().getUsername() == memo.user.userName}"
                           method="post" style="display:inline;" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
