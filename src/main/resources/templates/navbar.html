@@ -2,8 +2,8 @@
 <nav th:fragment="navbarFragment" class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <a class="navbar-brand" style="color:white" href="/">STUDYON</a>
-        <span class="navbar-text font-weight-bold" style="color:white" sec:authorize="isAuthenticated()">
-                         [ 환영합니다, <span th:text="${#authentication.getPrincipal().getUsername()}">사용자</span>님 ! ]
+        <span class="navbar-text font-weight-bold" style="color:white" th:if="${@rq.login}">
+                         [ 환영합니다, <span th:text="${@rq.siteUser.nickname}">사용자</span>님 ! ]
                     </span>
         <button class="navbar-toggler" style="color:white" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent"
