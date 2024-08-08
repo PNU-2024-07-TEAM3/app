@@ -174,6 +174,4 @@ public class StudyRoomController {
         return "redirect:/studyRooms/list";
     }
 
-
-
 }
