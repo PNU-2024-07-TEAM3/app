@@ -1,0 +1,30 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-5">
+    <h1 class="mb-4">Memo List</h1>
+    <a th:if="${!alreadyDone}" th:href="@{'/studyRooms/' + ${studyRoomId} + '/dailyStudy/' + ${dailyStudyId} + '/memos/create'}" class="btn btn-primary mb-3">포스트잇 붙이기</a>
+    <div class="row" style="color:yellow;">
+        <div th:each="memo : ${memos}" class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${memo.title}"><span th:text="${memo.title}"></span></h5>
+                    <p class="card-text" th:text="${memo.user.nickname}">작성자 : <span th:text="${memo.user.nickname}"></span></p>
+                    <!-- 쓴 사람인지 아닌지에 따라 버튼을 보여주는게 달라짐-->
+                    <a th:href="@{|/studyRooms/${studyRoomId}/dailyStudy/${dailyStudyId}/memos/${memo.memoId}/detail|}"
+                       class="btn btn-white" style="text-color:yellow; font-weight: bold">자세히 보기</a>
+                    <a th:href="@{|/studyRooms/${studyRoomId}/dailyStudy/${dailyStudyId}/memos/${memo.memoId}/edit|}"
+                       th:if="${memo.user != null and #authentication.getPrincipal().getUsername() == memo.user.userName}"
+                       class="btn btn-warning">수정</a>
+                    <form th:action="@{|/studyRooms/${studyRoomId}/dailyStudy/${dailyStudyId}/memos/${memo.memoId}/delete|}"
+                          th:if="${memo.user != null and #authentication.getPrincipal().getUsername() == memo.user.userName}"
+                          method="post" style="display:inline;" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+                        <button type="submit" class="btn btn-danger">삭제</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+</html>

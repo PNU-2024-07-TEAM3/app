@@ -14,7 +14,7 @@
         <tbody>
         <tr th:each="dailyStudy, index : ${dailyStudyList}">
             <td style="font-size: 2rem; padding: 0.5rem 0;">
-                <a th:href="@{|/studyRooms/${studyRoom.studyRoomId}/dailyStudy/detail/${dailyStudy.dailyStudyId}|}"
+                <a th:href="@{|/studyRooms/${studyRoom.studyRoomId}/dailyStudy/${dailyStudy.dailyStudyId}/memos|}"
                    th:text="${dailyStudy.dailyStudyTitle}"
                    style="color: white;"></a>
             </td>

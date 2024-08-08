@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DailyStudyService {
@@ -44,5 +45,10 @@ public class DailyStudyService {
         dailyStudy.setDailyStudyTitle(dailyStudyTitle);
 
         return dailyStudyRepository.save(dailyStudy);
+    }
+
+    public DailyStudy getDailyStudy(Integer dailyStudyId) {
+        Optional<DailyStudy> dailyStudy = dailyStudyRepository.findById(dailyStudyId);
+        return dailyStudy.orElseThrow(() -> new RuntimeException("DailyStudy not found"));
     }
 }
