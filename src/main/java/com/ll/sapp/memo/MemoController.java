@@ -1,5 +1,4 @@
 package com.ll.sapp.memo;
-
 import com.ll.sapp.dailystudy.DailyStudy;
 import com.ll.sapp.dailystudy.DailyStudyService;
 import com.ll.sapp.studyroom.StudyRoomService;
@@ -43,7 +42,7 @@ public class MemoController {
 
         String username = principal.getName();
         Optional<SiteUser> userOptional = userService.findByUsername(username);
-        model.addAttribute("alreadyDone", memoService.userHasMemo(userOptional.get()));
+        model.addAttribute("alreadyDone", memoService.userHasMemo(dailyStudy, userOptional.get()));
 
         return "memo_list";
     }
@@ -62,18 +61,17 @@ public class MemoController {
         String username = principal.getName();
         Optional<SiteUser> userOptional = userService.findByUsername(username);
         SiteUser user = userOptional.get();
-
-        if ( bindingResult.hasErrors() ) {
+        DailyStudy dailyStudy = dailyStudyService.getDailyStudy(dailyStudyId);
+        if (bindingResult.hasErrors()) {
             return "memo_form";
         }
 
         // Check if the user already has a memo
-        if (memoService.userHasMemo(user)) {
+        if (memoService.userHasMemo(dailyStudy, user)) {
             bindingResult.reject("saveFailed", "메모는 하나만 작성하실 수 있습니다.");
             return "memo_form";
         }
 
-        DailyStudy dailyStudy = dailyStudyService.getDailyStudy(dailyStudyId);
         Memo memo = new Memo();
         memo.setTitle(memoForm.getTitle());
         memo.setContent(memoForm.getContent());
@@ -99,7 +97,7 @@ public class MemoController {
 
     @PostMapping("/studyRooms/{studyRoomId}/dailyStudy/{dailyStudyId}/memos/{memoId}/edit")
     public String editForm(@Valid MemoForm memoForm, BindingResult bindingResult, @PathVariable Long memoId, Model model, @PathVariable Integer studyRoomId, @PathVariable Integer dailyStudyId) {
-        if ( bindingResult.hasErrors() ) {
+        if (bindingResult.hasErrors()) {
             return "memo_form";
         }
 
