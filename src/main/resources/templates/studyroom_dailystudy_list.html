@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <title>My Studyroom List</title>
 </head>
@@ -23,10 +24,15 @@
     </table>
 
     <div class="text-center" style="margin-top: 2rem; margin-bottom: 4rem;">
-        <a th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName}"
+        <a th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName and currentDate.minusDays(1).isBefore(studyRoom.endDate)}"
            th:href="@{|/studyRooms/${studyRoom.studyRoomId}/dailyStudy/add|}" class="btn btn-primary"
            style="background-color: green; color: white; font-weight: bold; padding: 22.5px 45px; border: 3px solid green; font-size: 2.5rem;">
             스터디 추가
+        </a>
+        <a th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName and currentDate.isAfter(studyRoom.endDate)}"
+           class="btn btn-primary"
+           style="background-color: red; color: white; font-weight: bold; padding: 22.5px 45px; border: 3px solid green; font-size: 2.5rem;">
+            스터디 기간 만료
         </a>
     </div>
 
