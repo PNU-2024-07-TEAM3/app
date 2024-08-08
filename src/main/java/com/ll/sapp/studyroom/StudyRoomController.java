@@ -174,13 +174,6 @@ public class StudyRoomController {
         return "redirect:/studyRooms/list";
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping(value = "/complete/{id}")
-    public String complete(Model model, @PathVariable("id") Integer id) {
-        StudyRoom studyRoom = studyRoomService.getStudyRoom(id);
-        model.addAttribute("studyRoom", studyRoom);
-        studyRoomService.completeStudyRoom(id);
-        return "complete_page";
-    }
+
 
 }
