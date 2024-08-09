@@ -14,8 +14,11 @@ https://studyon.fly.dev/
 
 
 ### 설명 영상 :
+https://youtu.be/Dov-hqZ_Kw4
 
 
 ### 참여자 :
 송승우, 이시하, 김도준, 김세엽, 최세영
+
+
 
