@@ -109,7 +109,7 @@ public class StudyRoomController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "권한이 없습니다.");
         }
         this.studyRoomService.completeRecruit(studyRoom);
-        return "redirect:/studyRooms/list";
+        return "redirect:/";
     }
 
     @GetMapping("/myList")

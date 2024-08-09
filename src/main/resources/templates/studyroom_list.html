@@ -13,7 +13,7 @@
         </div>
     </div>
     <table class="table mt-5">
-        <thead class="table-dark" style="color:#22543d;">
+        <thead class="table-dark" style="color: #22543d;">
         <tr class="text-center text-bg-light">
             <th>번호</th>
             <th style="width:50%">스터디 제목</th>
@@ -28,7 +28,7 @@
             <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
             <td class="text-start"><a th:href="@{|/studyRooms/detail/${studyRoom.studyRoomId}|}"
                                       th:text="${studyRoom.title}"
-                                      th:style="${studyRoom.isOpen} ? 'color: gray; font-weight: 600;' : 'color: #22543d; font-weight: 600;'">
+                                      th:style="${studyRoom.isOpen} ? 'color: gray; font-weight: 600;' : 'color: #146c43 ; font-weight: 600;'">
             </a></td>
             <td><span th:if="${studyRoom.leader != null}" th:text="${studyRoom.leader.nickname}"></span></td>
             <td><span th:text="${studyRoom.numOfUser}"></span></td>

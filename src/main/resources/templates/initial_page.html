@@ -1,7 +1,21 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+<style>
+    .blink {
+        color: #ffcd39;
+        animation: blink-animation 1s steps(5, start) infinite;
+    }
+
+    @keyframes blink-animation {
+        to {
+            visibility: hidden;
+        }
+    }
+</style>
+</head>
 <div layout:fragment="content" class="container my-3 d-flex flex-column align-items-center justify-content-center" style="height: 80vh;">
 
-    <p class="display-1 font-weight-bold mb-5">StudyON</p>
+    <p class="display-1 font-weight-bold mb-5">Study<span class="blink">ON</span></p>
 
     <div class="mb-4">
         <form th:action="@{/studyRooms/list}" method="get">

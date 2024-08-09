@@ -28,6 +28,12 @@
            style="background-color: green; color: white; font-weight: bold; padding: 22.5px 45px; border: 3px solid green; font-size: 2.5rem;">
             스터디 추가
         </a>
+        </a>
+        <a th:if="${studyRoom.leader != null and #authentication.getPrincipal().getUsername() == studyRoom.leader.userName and currentDate.isAfter(studyRoom.endDate)}"
+           class="btn btn-primary"
+           style="background-color: red; color: white; font-weight: bold; padding: 22.5px 45px; border: 3px solid green; font-size: 2.5rem;">
+            스터디 기간 만료
+        </a>
     </div>
 
 </div>
