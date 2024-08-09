@@ -13,7 +13,5 @@ public interface MemoRepository extends JpaRepository<Memo, Long> {
 
     List<Memo> findByDailyStudy(DailyStudy dailyStudy);
 
-    // 새로운 메서드 추가
     boolean existsByDailyStudyAndUser(DailyStudy dailyStudy, SiteUser user);
 }
-

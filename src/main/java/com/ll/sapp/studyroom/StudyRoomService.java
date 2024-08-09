@@ -51,7 +51,7 @@ public class StudyRoomService {
     public void completeStudyRoom(Integer id) {
         StudyRoom studyRoom = studyRoomRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid studyRoom ID:" + id));
-        studyRoom.setIsOpen(true); // 모집 완료 시 isOpen 값을 true로 설정
+        studyRoom.setIsOpen(true);
         studyRoomRepository.save(studyRoom);
     }
 

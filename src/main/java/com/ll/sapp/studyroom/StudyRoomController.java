@@ -156,7 +156,7 @@ public class StudyRoomController {
         return "redirect:/studyRooms/list";
     }
 
-    @PostMapping("enroll")
+    @PostMapping("/enroll")
     @PreAuthorize("isAuthenticated()")
     public String enrollment(@RequestParam Integer studyRoomId, Principal principal) {
         String userName = principal.getName();
