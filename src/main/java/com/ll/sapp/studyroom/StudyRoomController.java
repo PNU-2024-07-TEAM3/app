@@ -55,7 +55,6 @@ public class StudyRoomController {
         return "studyroom_detail";
     }
 
-
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
     public String studyRoomModify(StudyRoomModifyForm studyRoomModifyForm, @PathVariable("id") Integer id, Principal principal) {
@@ -157,7 +156,7 @@ public class StudyRoomController {
         return "redirect:/studyRooms/list";
     }
 
-    @PostMapping("enroll")
+    @PostMapping("/enroll")
     @PreAuthorize("isAuthenticated()")
     public String enrollment(@RequestParam Integer studyRoomId, Principal principal) {
         String userName = principal.getName();
