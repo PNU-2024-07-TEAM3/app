@@ -14,6 +14,8 @@ https://studyon.fly.dev/
 
 
 ### 설명 영상 :
+https://youtu.be/Dov-hqZ_Kw4
+
 
 
 ### 참여자 :
