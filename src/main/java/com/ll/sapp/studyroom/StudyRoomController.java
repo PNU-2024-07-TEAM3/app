@@ -55,6 +55,7 @@ public class StudyRoomController {
         return "studyroom_detail";
     }
 
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
     public String studyRoomModify(StudyRoomModifyForm studyRoomModifyForm, @PathVariable("id") Integer id, Principal principal) {
